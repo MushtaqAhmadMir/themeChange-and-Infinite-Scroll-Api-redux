@@ -24,6 +24,7 @@
     "react-native-confirmation-code-field": "^6.5.1",
     "react-native-confirmation-code-input": "^1.0.4",
     "react-native-flash-message": "^0.1.23",
+    "react-native-geolocation-service": "^5.2.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-image-picker": "^3.2.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.3",

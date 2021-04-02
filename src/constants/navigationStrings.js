@@ -6,7 +6,7 @@ export default {
     CART:"cart",
     TAB_ROUTES:"tabRoutes",
     MOBILE_LOGIN:"mobileLogin",
-    PROFILE:"profile"
-    
+    PROFILE:"profile",
+    SEARCH:"search"
 
 }

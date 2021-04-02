@@ -95,7 +95,7 @@ class Signup extends Component {
   isValidData = () => {
     const {email, name, password, confirmPassword,phoneNumber} = this.state;
     // alert()
-    const error = Validation({email, name, password, confirmPassword,phoneNumber});
+    const error = Validation({email, name, password, confirmPassword, phoneNumber});
     if (error) {
       showMessage({
         message: error,

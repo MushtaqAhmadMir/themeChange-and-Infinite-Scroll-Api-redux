@@ -12,7 +12,8 @@ import { connect } from 'react-redux';
   textColor,
   menuIcon,
   tintColor,
-  backgroundColor
+  backgroundColor,
+  onPress
   
 }){
  
@@ -26,7 +27,7 @@ import { connect } from 'react-redux';
     fontSize: 35,
     alignSelf: 'center',
     paddingHorizontal: 100,}}>{text}</Text>}
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
       {cartImg && <Image style={{
     height: 30,
      width: 30,tintColor:tintColor}} source={cartImg} />}
