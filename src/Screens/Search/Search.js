@@ -41,7 +41,7 @@ class Search extends Component {
     this.setState({
       timeout: setTimeout(() => {
         this.hitSearchApi();
-      }, 3000),
+      }, 600),
     });
   };
 

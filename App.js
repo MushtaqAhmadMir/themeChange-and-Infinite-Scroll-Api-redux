@@ -7,16 +7,19 @@ import {  Provider } from 'react-redux';
 import store from './src/redux/store';
 import actions from './src/redux/actions';
 import SplashScreen from 'react-native-splash-screen'
-
+import checkPermission from './src/utils/notificationServices'
 
 class App extends Component {
   
   componentDidMount() {
+
     getUserData().then((res) => {
       if (res) {
           actions.saveUserData(res);
           setTimeout(()=>{
             SplashScreen.hide();
+    checkPermission();
+
           })
          
       }
@@ -26,6 +29,7 @@ class App extends Component {
       }
     });
    
+    
     
   }
 
