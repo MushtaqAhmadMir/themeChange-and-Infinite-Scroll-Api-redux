@@ -73,6 +73,8 @@ class Profile extends Component {
   render() {
     const {newThemeColor} = this.props.themeColor;
     const {isVisible} = this.state;
+    
+    
     return (
       <View style={{backgroundColor: colors.lightGreyBg}}>
         <StatusBar bgcolor={newThemeColor} />
@@ -82,6 +84,7 @@ class Profile extends Component {
             text={strings.MY_PROFILE}
             tintColor={newThemeColor}
             cartImg={imagePath.cart}
+            
           />
         </View>
         <View
@@ -183,6 +186,7 @@ class Profile extends Component {
 const mapStateToProps = (state) => {
   return {
     themeColor: state.home.themeColor,
+    facebookData:state.auth.facebookData
   };
 };
 export default connect(mapStateToProps)(Profile);

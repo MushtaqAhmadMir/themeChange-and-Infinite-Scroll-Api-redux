@@ -15,7 +15,9 @@ class App extends Component {
 
     getUserData().then((res) => {
       if (res) {
+        console.log(res,"in APPPPPPPPP")
           actions.saveUserData(res);
+          // actions.facebookLogin(res)
           setTimeout(()=>{
             SplashScreen.hide();
     checkPermission();

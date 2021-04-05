@@ -18,6 +18,9 @@ import styles from '../Login/styles';
 import TextInputWithBottomBorder from '../../Components/TextInputWithBottomBorder';
 import { connect } from 'react-redux';
 import fontFamily from '../../styles/fontFamily';
+import { LoginManager, AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk'
+import actions from '../../redux/actions';
+import { setUserData } from '../../utils/utils';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +30,7 @@ class Login extends Component {
       email: '',
       password: '',
       bgUrl: imagePath.bg4,
+      userInfo:{}
     };
   }
 
@@ -94,11 +98,59 @@ class Login extends Component {
     return true;
   };
 
+  loginWithFacebook = () => {
+    // Attempt a login using the Facebook login dialog asking for default permissions.
+    LoginManager.logInWithPermissions(['public_profile']).then(
+      login => {
+        if (login.isCancelled) {
+          console.log('Login cancelled');
+        } else {
+          AccessToken.getCurrentAccessToken().then(data => {
+            console.log(data.accessToken)
+            const accessToken = data.accessToken.toString();
+            this.getInfoFromToken(accessToken);
+           
+          });
+        }
+      },
+      error => {
+        console.log('Login fail with error: ' + error);
+      },
+    );
+  };
+  // onLogoutFinished=() => this.setState({userInfo: {}})
+
+  getInfoFromToken = token => {
+    const PROFILE_REQUEST_PARAMS = {
+      fields: {
+        string: 'id, name,  first_name, last_name, picture.type(large)',
+      },
+    };
+    const profileRequest = new GraphRequest(
+      '/me',
+      {token, parameters: PROFILE_REQUEST_PARAMS},
+      (error, result) => {
+        if (error) {
+          console.log('login info has error: ' + error);
+        } else {
+          this.setState({userInfo: result});
+          setUserData(result)
+          this.props.navigation.navigate(navigationStrings.TAB_ROUTES)
+          console.log('result:', result);
+          
+         }
+      },
+    );
+    new GraphRequestManager().addRequest(profileRequest).start();
+  };
+
   render() {
     // console.log(arr)
-    const {bgUrl, resourcePath} = this.state;
+
+    const {bgUrl, resourcePath,userInfo} = this.state;
     const {navigation} = this.props;
     const{newThemeColor}=this.props.themeColor
+    // alert(JSON.stringify(userInfo))
     return (
       <KeyboardAwareScrollView>
         <View style={{flex: 1}}>
@@ -169,7 +221,7 @@ class Login extends Component {
           </View>
 
           <View style={styles.socialIconView}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.loginWithFacebook}>
               <View style={styles.iconView}>
                 <Image
                   style={styles.textFacebook}
@@ -206,6 +258,7 @@ class Login extends Component {
               {strings.NEW_USER}
             </Text>
           </View>
+        
         </View>
       </KeyboardAwareScrollView>
     );

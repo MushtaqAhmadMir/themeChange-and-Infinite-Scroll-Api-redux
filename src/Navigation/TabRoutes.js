@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Image, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Home, Search } from '../Screens';
+import { Cart, Home, Search } from '../Screens';
 import colors from '../styles/colors';
 import navigationStrings from '../constants/navigationStrings';
 import imagePath from '../constants/imagePath';
@@ -49,16 +49,16 @@ function TabRoutes(props) {
            }
          
         }} />
-        {/* <Tab.Screen name="Cart" component={Cart}  options={{
+        <Tab.Screen name="Cart" component={Cart}  options={{
           tabBarLabel: 'Cart',
-          tabBarIcon:(tintColor)=>
+          tabBarIcon:(focused)=>
            {
              return(
-               <Image style={{height:30,width:30,tintColor:colors.themeColor}} source={imagePath.cart} />
+               <Image style={{height:30,width:30,tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.cart} />
              )
            }
          
-        }} /> */}
+        }} />
          <Tab.Screen name="Profile" component={Profile}  options={{
           tabBarLabel: 'Profile',
           tabBarIcon:({focused})=>

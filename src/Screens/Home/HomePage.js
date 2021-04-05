@@ -23,7 +23,7 @@ class HomePage extends Component {
     offset: 6,
     isLoading: false,
     isFetching: false,
-    isNoMoreData:false
+    isNoMoreData:false,
   };
 
   componentDidMount() {
@@ -121,6 +121,10 @@ class HomePage extends Component {
       
       
   };
+  openDrawer = () => {
+    const { navigation } = this.props;
+    navigation.openDrawer();
+  }
 
   renderItem = ({item}) => {
     // console.log(item.fullName, 'item in homepage');
@@ -210,10 +214,11 @@ class HomePage extends Component {
         style={{
           backgroundColor: colors.lightGreyBg,
           flex: 1,
-          paddingBottom: 50,
+          paddingBottom: 40,
         }}>
         <Header
           menuIcon={imagePath.menu}
+          menuPress={this.openDrawer}
           text={en.APP_TITLE}
           cartImg={imagePath.cart}
           tintColor={newThemeColor}

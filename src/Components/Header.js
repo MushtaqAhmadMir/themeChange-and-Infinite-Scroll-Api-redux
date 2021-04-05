@@ -13,15 +13,18 @@ import { connect } from 'react-redux';
   menuIcon,
   tintColor,
   backgroundColor,
-  onPress
+  onPress,
+  menuPress
   
 }){
  
   return (
     <View style={styles.conatiner}>
+    <TouchableOpacity onPress={menuPress}>
       {menuIcon && <Image style={{
     height: 30,
      width: 30,tintColor:tintColor}} source={menuIcon} />}
+     </TouchableOpacity>
       {text && <Text style={{ color:tintColor,
     fontFamily: fontFamily.lobester,
     fontSize: 35,

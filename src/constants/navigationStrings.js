@@ -7,6 +7,7 @@ export default {
     TAB_ROUTES:"tabRoutes",
     MOBILE_LOGIN:"mobileLogin",
     PROFILE:"profile",
-    SEARCH:"search"
+    SEARCH:"search",
+    DRAWER_NAVIGATION:"drawerNavigation"
 
 }

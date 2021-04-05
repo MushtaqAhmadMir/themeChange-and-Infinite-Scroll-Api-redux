@@ -39,17 +39,7 @@ export function login(data = {}) {
   })
 }
 export function mobileVerify(data = {}){
-  return new Promise((resovle,reject)=>
-  {
-    apiPost(MOBILE_VERIFY, data).then(res=>{
-      setUserData(res.data);
-      resovle(res)
-    }).catch(error=>
-    {
-  reject(error)
-    })
-  })
-
+  return apiPost(MOBILE_VERIFY, data)
 }
 export function signup(data = {}){
   return new Promise((resovle,reject)=>
@@ -78,6 +68,14 @@ export function verifyOtp(data = {}){
     })
   })
 
+}
+
+export  function facebookLogin(data) {
+  dispatch({
+    type:types.FACEBOOK_LOGIN,
+    payload:data
+  })
+  
 }
 
 
