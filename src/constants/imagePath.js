@@ -20,5 +20,9 @@ cross:require('../../assets/images/cross.png'),
 ic_heart:require('../../assets/images/heart2.png'),
 ic_share:require('../../assets/images/ic-share.png'),
 ic_commet:require('../../assets/images/ic_commet.png'),
-ic_search:require('../../assets/images/ic_search.png')
+ic_search:require('../../assets/images/ic_search.png'),
+bg5:require('../../assets/images/bg5.jpg'),
+bg6:require('../../assets/images/bg5.png'),
+mypic:require('../../assets/images/mypicc.jpg'),
+ic_Qr:require('../../assets/images/Qr_logo.png')
 }

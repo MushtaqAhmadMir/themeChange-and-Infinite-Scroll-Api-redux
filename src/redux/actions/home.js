@@ -1,4 +1,4 @@
-import { GET_USERS, SEARCH_USER} from "../../config/urls";
+import { CHATLIST, GET_CONVERSATIONS, GET_USERS, SEARCH_USER} from "../../config/urls";
 import { apiGet, apiPost } from "../../utils/utils";
 import store from "../store";
 import types from "../types";
@@ -25,4 +25,11 @@ export  function themeChange(data) {
     payload:data
   })
   
+}
+
+export function chatList(limit,skip){
+  return apiGet(CHATLIST+`limit=`+limit+`&skip=`+skip)
+}
+export function getUserMessgeOneToOne(commonId){
+  return apiGet(GET_CONVERSATIONS+`?commonConversationId=${commonId}&`+`limit=100`)
 }

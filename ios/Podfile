@@ -10,6 +10,10 @@ target 'Login' do
 
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
   target 'LoginTests' do
     inherit! :complete
     # Pods for testing

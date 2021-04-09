@@ -6,6 +6,7 @@ import {
   Image,
   StyleSheet,
   ActivityIndicator,
+TouchableOpacity
 } from 'react-native';
 import Header from '../../Components/Header';
 import imagePath from '../../constants/imagePath';
@@ -15,16 +16,25 @@ import actions from '../../redux/actions';
 import {connect} from 'react-redux';
 import fontFamily from '../../styles/fontFamily';
 import store from '../../redux/store';
+import ImageViewer from '../ImageViewer/ImageViewer';
+import navigationStrings from '../../constants/navigationStrings';
+
+
 // const {subscribe}=store
 class HomePage extends Component {
-  state = {
-    users: [],
-    skip:0,
-    offset: 6,
-    isLoading: false,
-    isFetching: false,
-    isNoMoreData:false,
-  };
+  constructor(props)
+  {
+    super(props)
+    this.state = {
+      users: [],
+      skip:0,
+      offset: 6,
+      isLoading: false,
+      isFetching: false,
+      isNoMoreData:false,
+    };
+  }
+  
 
   componentDidMount() {
   
@@ -127,7 +137,7 @@ class HomePage extends Component {
   }
 
   renderItem = ({item}) => {
-    // console.log(item.fullName, 'item in homepage');
+    const{navigation}=this.props
     const {newThemeColor} = this.props.themeColor;
 
     return (
@@ -159,14 +169,18 @@ class HomePage extends Component {
               <Text style={{fontSize: 16, color: newThemeColor}}>
                 Looking For {item.lookingFor}
               </Text>
+           
             </View>
+           
             <Image
               style={{height: 22, width: 22, marginLeft: 70}}
               source={imagePath.loc}
             />
-            <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+           
+            
+          {item.addressDetails.city &&  <Text style={{fontSize: 18, fontWeight: 'bold'}}>
               {item.addressDetails.city}
-            </Text>
+            </Text>}
           </View>
         </View>
         <View
@@ -183,10 +197,12 @@ class HomePage extends Component {
               "{item.questions[0]}"
             </Text>
           )}
+          <TouchableOpacity>
           <Image
             style={{height: 300, width: '95%', margin: 10, borderRadius: 4}}
             source={{uri: item.profileImg[0].original}}
           />
+           </TouchableOpacity>
         </View>
         <View style={styles.iconView}>
           <Image

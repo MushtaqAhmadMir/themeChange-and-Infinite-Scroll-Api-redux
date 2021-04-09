@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Image, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Cart, Home, Search } from '../Screens';
+import { Cart, Chat, ChatRow, Home, Search } from '../Screens';
 import colors from '../styles/colors';
 import navigationStrings from '../constants/navigationStrings';
 import imagePath from '../constants/imagePath';
@@ -31,13 +31,23 @@ function TabRoutes(props) {
            tabBarIcon:({focused})=>
            {
              return(
-               <Image style={{height:30,width:30, tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.home} />
+               <Image style={{height:25,width:25, tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.home} />
              )
            }
         }
         }
        
       />
+      <Tab.Screen name="Chat" component={ChatRow}  options={{
+          tabBarLabel: 'Chat',
+          tabBarIcon:({focused})=>
+           {
+             return(
+               <Image style={{height:30,width:30,tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.ic_commet} />
+             )
+           }
+         
+        }} />
         <Tab.Screen name="Search" component={Search}  options={{
           showIcon:true,
           tabBarLabel: 'Search',
@@ -51,7 +61,7 @@ function TabRoutes(props) {
         }} />
         <Tab.Screen name="Cart" component={Cart}  options={{
           tabBarLabel: 'Cart',
-          tabBarIcon:(focused)=>
+          tabBarIcon:({focused})=>
            {
              return(
                <Image style={{height:30,width:30,tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.cart} />

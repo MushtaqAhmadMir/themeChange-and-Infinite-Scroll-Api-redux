@@ -7,9 +7,11 @@ import colors from '../../styles/colors';
 import imagePath from '../../constants/imagePath';
 import fontFamily from '../../styles/fontFamily';
 import * as shape from 'd3-shape';
+import { connect } from 'react-redux';
 
 
-export default class extends Component {
+
+class Cart  extends Component {
 state={
     fill : 'rgb(134, 65, 244)',
      data : [50, 10, 40, 95, -4, -24, 85, 0, 35, 53, -53, 24, 50, -20, -80]
@@ -29,14 +31,16 @@ randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000
     }))
  
   render() {
+    const {newThemeColor}=this.props.themeColor
       const{data,fill}=this.state
     return (
       <View style={{flex: 1}}>
         <StatusBar bgcolor={'red'} />
         <Header
           text={'Graphs'}
-          tintColor={colors.textBlue}
+          tintColor={newThemeColor}
           menuIcon={imagePath.menu}
+          textColor={newThemeColor}
         />
         <ScrollView>
 
@@ -82,3 +86,12 @@ const styles = StyleSheet.create({
     },
    
   });
+  const mapStateToProps=state=>
+  {
+    return(
+      {
+        themeColor:state.home.themeColor
+      }
+    )
+  }
+  export default connect(mapStateToProps)(Cart)

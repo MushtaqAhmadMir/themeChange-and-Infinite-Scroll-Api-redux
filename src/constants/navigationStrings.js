@@ -8,6 +8,10 @@ export default {
     MOBILE_LOGIN:"mobileLogin",
     PROFILE:"profile",
     SEARCH:"search",
-    DRAWER_NAVIGATION:"drawerNavigation"
-
+    DRAWER_NAVIGATION:"drawerNavigation",
+    IMAGEVIEWER:'imageViewer',
+    QR_SCREEN:'qrScreen',
+    QR_SCANNER:'qrScanner',
+    CHAT:'chat',
+    CHATROW:'chatRow'
 }

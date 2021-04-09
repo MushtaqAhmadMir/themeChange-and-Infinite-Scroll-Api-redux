@@ -18,6 +18,7 @@ import strings from '../../constants/lang';
 import colors from '../../styles/colors';
 import imagePath from '../../constants/imagePath';
 import styles from '../Login/styles';
+import { clearUserData } from '../../utils/utils';
 
 // console.log(newthemeColor,"in profile")
 class Profile extends Component {
@@ -44,6 +45,12 @@ class Profile extends Component {
     let data = {newThemeColor: colorId};
     actions.themeChange(data);
   };
+  onLogout=()=>
+  {
+    clearUserData().then(
+      alert('logOut success')
+    )
+  }
 
   openModal = () => {
       this.setState({isVisible:true})

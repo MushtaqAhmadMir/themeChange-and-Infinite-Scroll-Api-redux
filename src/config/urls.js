@@ -11,6 +11,8 @@ export const MOBILE_VERIFY=getNewApiUrl('/user/v1/loginSignupOtp')
 export const OTP_VERIFY=getNewApiUrl('/user/v1/verifyOtp')
  export const GET_USERS=getNewApiUrl('/user/v1/getUserSearch')
  export const SEARCH_USER=getNewApiUrl('/user/v1/getUserNearMe')
+ export const CHATLIST=getNewApiUrl('/user/v1/getAllConversations?')
+export const GET_CONVERSATIONS= getNewApiUrl('/user/v1/getConversationMessages')
 
 
  
