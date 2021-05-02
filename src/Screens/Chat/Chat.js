@@ -1,6 +1,6 @@
 import { map } from 'lodash';
 import React, {Component} from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat'; // 0.2.5
 import { connect } from 'react-redux';
 import ChatHeader from '../../Components/ChatHeader';
@@ -19,8 +19,10 @@ import socketServices from '../../utils/socketService';
 
   componentDidMount() {
     const{userData}=this.props
+    
+    
     this.getUserChats()
-    socketServices.initializeSocket(userData.accessToken)
+   
      socketServices.on(SOCKET_STRINGS.RECEIVED_MESSAGE, this.onReceiveMessage);
   }
  
@@ -28,7 +30,7 @@ import socketServices from '../../utils/socketService';
   getUserChats=()=>
   {
     const {name, image, commonId, id} = this.props.route.params;
-    const{messages}=this.state
+    
   
     actions
       .getUserMessgeOneToOne(commonId)
@@ -58,6 +60,8 @@ import socketServices from '../../utils/socketService';
   
   }
   onReceiveMessage = data => {
+    // alert(JSON.stringify(data))
+    // console.log(JSON.stringify(data),"recive")
     const {
       commonId,
       name,
@@ -120,14 +124,8 @@ import socketServices from '../../utils/socketService';
     const SendButton = () => {
       return (
         <View
-          style={{
-            marginHorizontal: 10,
-            alignSelf: 'center',
-            height: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Image style={{height: 20, width: 20}} source={imagePath.loc} />
+          style={styles.container}>
+          <Image style={styles.btnWidth} source={imagePath.ic_send} />
         </View>
       );
     };
@@ -139,6 +137,7 @@ import socketServices from '../../utils/socketService';
           children={<SendButton />}
           messages={this.state.messages}
           onSend={(messages) => this.onSend(messages)}
+          alwaysShowSend={true}
           user={{
             _id: userData._id
           }}
@@ -157,3 +156,14 @@ const mapStateToProps=state=>
  
 }
 export default connect(mapStateToProps)(Chat)
+const styles=StyleSheet.create({
+  container:
+  {
+    marginHorizontal: 10,
+    alignSelf: 'center',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnWidth:{height: 25, width: 25}
+})

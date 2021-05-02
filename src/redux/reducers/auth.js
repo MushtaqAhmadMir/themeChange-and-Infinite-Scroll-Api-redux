@@ -19,6 +19,14 @@ export default function (state=initialState,action) {
 
             return {...state,userData}
         }
+        case types.LOGOUT:
+            {
+                // alert('reducer')
+                return{
+                    ...state,
+                    userData:{}
+                }
+            }
         case types.DELETE_USERDATA:{
            clearUserData()
             const data={...action.payload}

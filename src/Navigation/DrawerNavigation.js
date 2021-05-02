@@ -15,7 +15,7 @@ export default function DrawerNavigation() {
    
       <Drawer.Navigator drawerContent={props=><DrawerContent {...props}/>} >
        
-        <Drawer.Screen name='Home' component={TabRoutes} />
+        <Drawer.Screen name={navigationStrings.HOME_PAGE} component={TabRoutes} />
         
       </Drawer.Navigator>
    

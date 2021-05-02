@@ -36,7 +36,7 @@ export default {
     OFFERS:'Offers',
     MY_ACCOUNTS:'My Accounts',
     MY_PROFILE:'My Profile',
-    MY_ORDERS:"My Orders",
+    MY_ORDERS:"MY ORDERS",
     NOTIFICATION:'Notification',
     FAVOURITE:"Favourite",
     ABOUT_US:"About Us",
@@ -48,6 +48,12 @@ export default {
     LOG_IN_VIA_OTP:'Login via OTP',
     FACEBOOK:'FACEBOOK',
     GOOGLE:'GOOGLE',
-    NEW_USER:'New User Signup?'
+    NEW_USER:'New User Signup?',
+    CHANGE_THEME:'CHANGE THEME',
+    HELP:'HELP',
+    WISHLIST:'WISHLIST',
+    LOGOUT:'LOGOUT',
+    ONLINE:'Online',
+    SCAN_QR_CODE:'Please SCAN QR code'
 
 }

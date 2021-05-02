@@ -24,5 +24,6 @@ ic_search:require('../../assets/images/ic_search.png'),
 bg5:require('../../assets/images/bg5.jpg'),
 bg6:require('../../assets/images/bg5.png'),
 mypic:require('../../assets/images/mypicc.jpg'),
-ic_Qr:require('../../assets/images/Qr_logo.png')
+ic_Qr:require('../../assets/images/Qr_logo.png'),
+ic_send:require('../../assets/images/ic_send.png')
 }

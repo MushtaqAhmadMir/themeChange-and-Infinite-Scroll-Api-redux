@@ -9,7 +9,9 @@ import {
   FlatList,
   Text,
   ActivityIndicator,
-  Animated,Easing, ScrollView
+  Animated,
+  Easing,
+  ScrollView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import Header from '../../Components/Header';
@@ -19,13 +21,12 @@ import colors from '../../styles/colors';
 import fontFamily from '../../styles/fontFamily';
 import Geolocation from 'react-native-geolocation-service';
 import {locationPermission} from '../../utils/permissions';
-import SearchLoader from '../../Components/SearchLoader'
+import SearchLoader from '../../Components/SearchLoader';
 class Search extends Component {
   constructor() {
+
+    
     super();
-    // this.spinValue = new Animated.Value(0)
-    // this.animatedValue = new Animated.Value(0)
-    // this.springValue = new Animated.Value(0.3)
     this.state = {
       search: '',
       users: [],
@@ -34,46 +35,6 @@ class Search extends Component {
       switchUsers: false,
     };
   }
-  componentDidMount () {
-    // this.spin()
-    // this.animate()
-    // this.spring()
-  }
-  // spring () {
-  //   this.springValue.setValue(0.3)
-  //   Animated.spring(
-  //     this.springValue,
-  //     {
-  //       toValue: 1,
-  //       friction: 1
-  //     }
-  //   ).start()
-  // }
-  // spin () {
-  //   this.spinValue.setValue(0)
-  //   Animated.timing(
-  //     this.spinValue,
-  //     {
-  //       toValue: 1,
-  //       duration: 4000,
-  //       easing: Easing.linear,
-  //       // useNativeDriver:true
-
-  //     }
-  //   ).start(() => this.spin())
-  // }
-  // animate () {
-  //   this.animatedValue.setValue(0)
-  //   Animated.timing(
-  //     this.animatedValue,
-  //     {
-  //       toValue: 1,
-  //       duration: 2000,
-  //       easing: Easing.linear,
-  //       // useNativeDriver:true
-  //     }
-  //   ).start(() => this.animate())
-  // }
 
   getSearchValue = (search) => {
     const {timeout} = this.state;
@@ -96,7 +57,7 @@ class Search extends Component {
       .getSearchItems(search)
       .then((res) => {
         console.log(res);
-        this.setState({users: res.data,isSearching:false });
+        this.setState({users: res.data, isSearching: false});
       })
       .catch((err) => {
         console.log(err);
@@ -105,26 +66,25 @@ class Search extends Component {
   };
 
   switchUser = () => {
-    let {switchUsers} = this.state
-    this.setState({switchUsers: !switchUsers,users:[]});
+    let {switchUsers} = this.state;
+    this.setState({switchUsers: !switchUsers, users: []});
   };
 
   hitNearbySearchApi = () => {
-    this.setState({isSearching:true})
+    this.setState({isSearching: true});
     locationPermission()
       .then((res) => {
         // console.log(res.coords);
         if (res === 'granted') {
           Geolocation.getCurrentPosition(
             (position) => {
-             
               console.log(position.coords);
-              const {latitude,longitude} = position.coords;
+              const {latitude, longitude} = position.coords;
               // console.log(latitude,longitude)
               actions
                 .getNearbySearchItems(latitude, longitude)
                 .then((res) => {
-                this.setState({users:res.data,isSearching:false})
+                  this.setState({users: res.data, isSearching: false});
                 })
                 .catch((err) => {
                   console.log(err);
@@ -197,31 +157,8 @@ class Search extends Component {
   };
 
   render() {
-    // const spin = this.spinValue.interpolate({
-    //   inputRange: [0, 1],
-    //   outputRange: ['0deg', '360deg']
-    // })
 
-    // const marginLeft = this.animatedValue.interpolate({
-    //   inputRange: [0, 1],
-    //   outputRange: [0, 300]
-    // })
-    // const opacity = this.animatedValue.interpolate({
-    //   inputRange: [0, 0.5, 1],
-    //   outputRange: [0, 1, 0]
-    // })
-    // const movingMargin = this.animatedValue.interpolate({
-    //   inputRange: [0, 0.5, 1],
-    //   outputRange: [0, 300, 0]
-    // })
-    // const textSize = this.animatedValue.interpolate({
-    //   inputRange: [0, 0.5, 1],
-    //   outputRange: [18, 32, 18]
-    // })
-    // const rotateX = this.animatedValue.interpolate({
-    //   inputRange: [0, 0.5, 1],
-    //   outputRange: ['0deg', '180deg', '0deg']
-    // })
+
 
     console.log(this.state.search);
     const {newThemeColor} = this.props.themeColor;
@@ -241,10 +178,8 @@ class Search extends Component {
               placeholder={'Search The Users'}
               style={{padding: 10}}
               value={search}
-              onChangeText={this.getSearchValue} 
+              onChangeText={this.getSearchValue}
             />
-            
-           
           </View>
         ) : (
           <TouchableOpacity
@@ -257,63 +192,7 @@ class Search extends Component {
         <View style={{borderRadius: 10, marginBottom: 65}}>
           <FlatList data={users} renderItem={this.renderItem} />
         </View>
-        <SearchLoader isSearching={isSearching}/>
-        {/* <ScrollView> */}
-        {/* <Animated.Image
-        style={{
-          marginLeft:100,
-          width: 227,
-          height: 200,
-          transform: [{rotate: spin}] }}
-          source={{uri: 'https://s3.amazonaws.com/media-p.slid.es/uploads/alexanderfarennikov/images/1198519/reactjs.png'}}
-      />
-      <View style={styles.container}>
-      <Animated.View
-        style={{
-          marginLeft,
-          height: 30,
-          width: 40,
-          backgroundColor: 'red'}} />
-      <Animated.View
-        style={{
-          opacity,
-          marginTop: 10,
-          height: 30,
-          width: 40,
-          backgroundColor: 'blue'}} />
-      <Animated.View
-        style={{
-          marginLeft: movingMargin,
-          marginTop: 10,
-          height: 30,
-          width: 40,
-          backgroundColor: 'orange'}} />
-      <Animated.Text
-        style={{
-          fontSize: textSize,
-          marginTop: 10,
-          color: 'green'}} >
-          Animated Text!
-      </Animated.Text>
-      <Animated.View
-        style={{
-          transform: [{rotateX}],
-          marginTop: 50,
-          height: 30,
-          width: 40,
-          backgroundColor: 'black'}}>
-        <Text style={{color: 'white'}}>Hello from TransformX</Text>
-      </Animated.View>
-    </View>
-    <View style={styles.container}>
-  <Text
-    style={{marginBottom: 100}}
-    onPress={this.spring.bind(this)}>Spring</Text>
-    <Animated.Image
-      style={{ width: 227, height: 200, transform: [{scale: this.springValue}] }}
-      source={{uri: 'https://s3.amazonaws.com/media-p.slid.es/uploads/alexanderfarennikov/images/1198519/reactjs.png'}}/>
-</View>
-</ScrollView> */}
+        <SearchLoader isSearching={isSearching} />
       </View>
     );
   }
@@ -335,7 +214,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: 150
+    paddingTop: 150,
   },
   iconView: {
     backgroundColor: colors.white,
@@ -377,15 +256,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 30,
   },
-  nearbyBtn:{
-    borderWidth:.5,
+  nearbyBtn: {
+    borderWidth: 0.5,
     width: '100%',
     alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding:10
-    
-
-  }
+    padding: 10,
+  },
 });

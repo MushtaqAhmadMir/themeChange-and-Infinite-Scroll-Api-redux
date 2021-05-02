@@ -4,6 +4,7 @@ import colors from '../styles/colors';
 import en from '../constants/lang';
 
 import { connect } from 'react-redux';
+import commonStyles from '../styles/commonStyles';
 function ChatHeader({
     
     name,
@@ -39,8 +40,9 @@ function ChatHeader({
         
       },
     text: {
+        ...commonStyles.fontSize18,
       color: colors.black,
-      fontSize: 20,
+     
       alignSelf: 'center',
       paddingHorizontal: 20,
     },

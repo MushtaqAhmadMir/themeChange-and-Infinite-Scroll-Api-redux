@@ -1,6 +1,7 @@
 export default {
 
     LOGIN:'LOGIN',
+    LOGOUT:'LOGOUT',
     ADD_DATA:'HOMEPAGE',
    DELETE_ITEM:'DELETE_ITEM',
    CHANGE_VALUE:"CHANGE_VALUE",

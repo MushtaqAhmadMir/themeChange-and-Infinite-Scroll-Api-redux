@@ -6,30 +6,24 @@ import {getUserData} from './src/utils/utils';
 import {  Provider } from 'react-redux';
 import store from './src/redux/store';
 import actions from './src/redux/actions';
-import SplashScreen from 'react-native-splash-screen'
+// import SplashScreen from 'react-native-splash-screen'
 import checkPermission from './src/utils/notificationServices'
 
 class App extends Component {
   
   componentDidMount() {
-
+   
     getUserData().then((res) => {
       if (res) {
+        
         console.log(res,"in APPPPPPPPP")
           actions.saveUserData(res);
           // actions.facebookLogin(res)
-          setTimeout(()=>{
-            SplashScreen.hide();
-    checkPermission();
-
-          })
+         checkPermission()
          
       }
-      else
-      {
-        SplashScreen.hide();
-      }
-    });
+     
+    }).catch(err=>console.log(err))
    
     
     
@@ -38,6 +32,7 @@ class App extends Component {
   render() {
     console.log(this.props,"userdata in ")
     return (
+      
       <Fragment>
       <Provider store={store}>
         <Routes />

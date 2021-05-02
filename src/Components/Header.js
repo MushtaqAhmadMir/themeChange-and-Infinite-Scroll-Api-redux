@@ -1,11 +1,17 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text, Touchable, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  Touchable,
+  TouchableOpacity,
+} from 'react-native';
 import colors from '../styles/colors';
-import en from '../constants/lang';
 import fontFamily from '../styles/fontFamily';
-import { connect } from 'react-redux';
- 
- function Header({
+import { textScale, verticalScale } from '../styles/responsiveSize';
+
+function Header({
   backButton,
   text,
   cartImg,
@@ -14,33 +20,52 @@ import { connect } from 'react-redux';
   tintColor,
   backgroundColor,
   onPress,
-  menuPress
-  
-}){
- 
+  menuPress,
+}) {
   return (
     <View style={styles.conatiner}>
-    <TouchableOpacity onPress={menuPress}>
-      {menuIcon && <Image style={{
-    height: 30,
-     width: 30,tintColor:tintColor}} source={menuIcon} />}
-     </TouchableOpacity>
-      {text && <Text style={{ color:tintColor,
-    fontFamily: fontFamily.lobester,
-    fontSize: 35,
-    alignSelf: 'center',
-    paddingHorizontal: 100,}}>{text}</Text>}
+      <TouchableOpacity onPress={menuPress}>
+        {menuIcon && (
+          <Image
+            style={{
+              height: 30,
+              width: 30,
+              tintColor: tintColor,
+            }}
+            source={menuIcon}
+          />
+        )}
+      </TouchableOpacity>
+      {text && (
+        <Text
+          style={{
+            color: tintColor,
+            fontFamily: fontFamily.lobester,
+            fontSize:textScale(35),
+            alignSelf: 'center',
+            paddingHorizontal: 100,
+          }}>
+          {text}
+        </Text>
+      )}
       <TouchableOpacity onPress={onPress}>
-      {cartImg && <Image style={{
-    height: 30,
-     width: 30,tintColor:tintColor}} source={cartImg} />}
+        {cartImg && (
+          <Image
+            style={{
+              height: 30,
+              width: 30,
+              tintColor: tintColor,
+            }}
+            source={cartImg}
+          />
+        )}
       </TouchableOpacity>
     </View>
   );
 }
 const styles = StyleSheet.create({
   conatiner: {
-    height: 80,
+    height: verticalScale(90),
     backgroundColor: colors.white,
     alignItems: 'center',
     flexDirection: 'row',
@@ -48,9 +73,8 @@ const styles = StyleSheet.create({
   },
   img: {
     height: 30,
-     width: 30,
-      
-    },
+    width: 30,
+  },
   text: {
     color: colors.themeColor,
     fontFamily: fontFamily.lobester,
@@ -60,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Header
+export default Header;

@@ -1,14 +1,13 @@
 import { StyleSheet } from "react-native";
 import colors from "../../styles/colors";
+import commonStyles from "../../styles/commonStyles";
 import fontFamily from "../../styles/fontFamily";
-
 export default StyleSheet.create({
     textInput: {
+      ...commonStyles.mediumFont16,
       borderBottomWidth: 2,
-      // width: 380,
-      //  backgroundColor: '#4DB8BA',
       borderRadius: 5,
-      fontSize: 18,
+      // fontSize: 18,
       padding: 10,
       // borderRadius:20
       borderBottomColor: colors.themeColor,
@@ -42,9 +41,10 @@ export default StyleSheet.create({
       opacity: 0.6,
     },
     orText: {
+      ...commonStyles.mediumFont14,
       lineHeight: 24,
       textAlign: 'center',
-      // fontFamily: fontFamily.medium,
+      fontFamily: fontFamily.medium,
       opacity: 0.6,
       marginTop: 0,
       marginHorizontal: 16,
@@ -99,4 +99,9 @@ export default StyleSheet.create({
     focusCell: {
       borderColor: '#000',
     },
+    newUser:{
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 75,
+    }
   });

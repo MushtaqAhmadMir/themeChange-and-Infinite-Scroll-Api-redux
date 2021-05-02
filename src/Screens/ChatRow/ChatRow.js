@@ -11,9 +11,11 @@ import {connect} from 'react-redux';
 import Header from '../../Components/Header';
 import Loader from '../../Components/Loader';
 import imagePath from '../../constants/imagePath';
+import strings from '../../constants/lang';
 import navigationStrings from '../../constants/navigationStrings';
 import actions from '../../redux/actions';
 import colors from '../../styles/colors';
+import commonStyles from '../../styles/commonStyles';
 
 class ChatRow extends Component {
   state = {
@@ -45,7 +47,7 @@ class ChatRow extends Component {
             image: userInfo.profileImg[0].original,
             commonId: commonConversationId,
             id: _id,
-            isOnline:isOnline
+            isOnline: isOnline,
           })
         }>
         <View style={styles.container1}>
@@ -62,7 +64,7 @@ class ChatRow extends Component {
           </View>
           <View>
             {isOnline ? (
-              <Text style={{color: 'green', padding: 10}}>Online</Text>
+              <Text style={styles.textOnline}>{strings.ONLINE}</Text>
             ) : (
               <Text>Offline</Text>
             )}
@@ -122,11 +124,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   name: {
-    fontSize: 20,
+    ...commonStyles.fontSize18,
   },
-  spaceBt: {
-    // justifyContent:"space-between",
-    // flexDirection:"row",
-    // justifyContent:"space-around"
-  },
+  textOnline: {color: colors.green, padding: 10},
 });

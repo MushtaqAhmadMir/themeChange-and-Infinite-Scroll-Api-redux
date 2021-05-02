@@ -89,4 +89,14 @@ export default StyleSheet.create({
       alignSelf: 'flex-end',
       marginRight: 15,
     },
+    checkboxContainer: {
+      flexDirection: "row",
+      marginBottom: 20,
+    },
+    checkbox: {
+      alignSelf: "center",
+    },
+    label: {
+      margin: 8,
+    },
   });

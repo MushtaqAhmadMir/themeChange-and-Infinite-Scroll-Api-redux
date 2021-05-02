@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Image,CheckBox} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import imagePath from '../../constants/imagePath';
@@ -16,11 +16,16 @@ import ButtonWithLoader from '../../Components/ButtonWithLoader';
 import strings from '../../constants/lang/en';
 import styles from '../Login/styles';
 import TextInputWithBottomBorder from '../../Components/TextInputWithBottomBorder';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import fontFamily from '../../styles/fontFamily';
-import { LoginManager, AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk'
+import {
+  LoginManager,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+} from 'react-native-fbsdk';
 import actions from '../../redux/actions';
-import { setUserData } from '../../utils/utils';
+import {setUserData} from '../../utils/utils';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +35,8 @@ class Login extends Component {
       email: '',
       password: '',
       bgUrl: imagePath.bg4,
-      userInfo:{}
+      userInfo: {},
+      isSelected:false
     };
   }
 
@@ -48,7 +54,7 @@ class Login extends Component {
   };
 
   apiCall = () => {
-     alert("Api Call")
+    alert('Api Call');
     const {email, password} = this.state;
     if (this.isValidData()) {
       // alert('Valid Data');
@@ -59,13 +65,13 @@ class Login extends Component {
         })
         .then((res) => {
           this.setState({isLoading: false});
-          console.log(res,"api calll");
-          
-     showMessage({
-      message: 'Sucessfully Login',
-      type: 'success',
-      icon: 'sucess',
-    });
+          console.log(res, 'api calll');
+
+          showMessage({
+            message: 'Sucessfully Login',
+            type: 'success',
+            icon: 'sucess',
+          });
           this.props.navigation.navigate(navigationStrings.HOME_PAGE);
         })
         .catch((error) => {
@@ -75,7 +81,7 @@ class Login extends Component {
             icon: 'danger',
           });
           this.setState({isLoading: false});
-          console.log(error,"in error");
+          console.log(error, 'in error');
         });
     }
   };
@@ -94,33 +100,31 @@ class Login extends Component {
       return false;
     }
 
-
     return true;
   };
 
   loginWithFacebook = () => {
     // Attempt a login using the Facebook login dialog asking for default permissions.
     LoginManager.logInWithPermissions(['public_profile']).then(
-      login => {
+      (login) => {
         if (login.isCancelled) {
           console.log('Login cancelled');
         } else {
-          AccessToken.getCurrentAccessToken().then(data => {
-            console.log(data.accessToken)
+          AccessToken.getCurrentAccessToken().then((data) => {
+            console.log(data.accessToken);
             const accessToken = data.accessToken.toString();
             this.getInfoFromToken(accessToken);
-           
           });
         }
       },
-      error => {
+      (error) => {
         console.log('Login fail with error: ' + error);
       },
     );
   };
   // onLogoutFinished=() => this.setState({userInfo: {}})
 
-  getInfoFromToken = token => {
+  getInfoFromToken = (token) => {
     const PROFILE_REQUEST_PARAMS = {
       fields: {
         string: 'id, name,  first_name, last_name, picture.type(large)',
@@ -134,22 +138,28 @@ class Login extends Component {
           console.log('login info has error: ' + error);
         } else {
           this.setState({userInfo: result});
-          setUserData(result)
-          this.props.navigation.navigate(navigationStrings.TAB_ROUTES)
+          setUserData(result);
+          this.props.navigation.navigate(navigationStrings.TAB_ROUTES);
           console.log('result:', result);
-          
-         }
+        }
       },
     );
     new GraphRequestManager().addRequest(profileRequest).start();
   };
 
+  setSelection=()=>
+  {
+     this.setState({
+       isSelected:!this.state.isSelected
+     })
+  }
+
   render() {
     // console.log(arr)
 
-    const {bgUrl, resourcePath,userInfo} = this.state;
+    const {bgUrl, resourcePath, userInfo,isSelected} = this.state;
     const {navigation} = this.props;
-    const{newThemeColor}=this.props.themeColor
+    const {newThemeColor} = this.props.themeColor;
     // alert(JSON.stringify(userInfo))
     return (
       <KeyboardAwareScrollView>
@@ -158,22 +168,16 @@ class Login extends Component {
           <AuthHeader text={'LOGIN'} />
           <View
             style={{height: 150, margin: 10, justifyContent: 'space-around'}}>
-            {/* <TextInput
-              placeholderTextColor={colors.themeColor}
-              placeholder="Email"
-              style={styles.textInput}
-              onChangeText={this.handleInputs('email')}
-            /> */}
-             <TextInputWithBottomBorder
-                placeholder={'Email'}
+            <TextInputWithBottomBorder
+              placeholder={'Email'}
               placeholderTextColor={newThemeColor}
               fontSize={18}
               padding={10}
               borderBottomWidth={2}
               borderBottomColor={newThemeColor}
               onChangeText={this.handleInputs('email')}
-             />
-             <TextInputWithBottomBorder
+            />
+            <TextInputWithBottomBorder
               placeholder={'Password'}
               placeholderTextColor={newThemeColor}
               fontSize={18}
@@ -181,27 +185,30 @@ class Login extends Component {
               borderBottomWidth={2}
               borderBottomColor={newThemeColor}
               onChangeText={this.handleInputs('password')}
-              secureTextEntry={true}
+              secureTextEntry={!isSelected}
             />
-            {/* <TextInput
-              placeholderTextColor={colors.themeColor}
-              placeholder="Password"
-              secureTextEntry={true}
-              style={styles.textInput}
-              onChangeText={this.handleInputs('password')}
-            /> */}
-          </View>
+          </View> 
+          <View style={styles.checkboxContainer}>
+        <CheckBox
+          value={isSelected}
+           onValueChange={this.setSelection}
+          style={styles.checkbox}
+        />
+        <Text style={styles.label}>Show Password</Text>
+      </View>
           <TouchableOpacity
             onPress={() =>
               this.props.navigation.navigate(navigationStrings.MOBILE_LOGIN)
             }
-            style={{ alignItems: 'center',
-      backgroundColor: newThemeColor,
-      height: 20,
-      borderRadius: 20,
-      width: 100,
-      alignSelf: 'flex-end',
-      marginRight: 15,}}>
+            style={{
+              alignItems: 'center',
+              backgroundColor: newThemeColor,
+              height: 20,
+              borderRadius: 20,
+              width: 100,
+              alignSelf: 'flex-end',
+              marginRight: 15,
+            }}>
             <Text style={{color: colors.white}}>{strings.LOG_IN_VIA_OTP}</Text>
           </TouchableOpacity>
           <View style={{marginTop: 20}}>
@@ -250,25 +257,24 @@ class Login extends Component {
               onPress={() => {
                 this.props.navigation.navigate(navigationStrings.SIGNUP);
               }}
-              style={{ color: newThemeColor,
-      fontSize: 20,
-      fontWeight: 'bold',
-      fontFamily: fontFamily.lobester,
-   }}>
+              style={{
+                color: newThemeColor,
+                fontSize: 20,
+                fontWeight: 'bold',
+                fontFamily: fontFamily.lobester,
+              }}>
               {strings.NEW_USER}
             </Text>
           </View>
-        
         </View>
       </KeyboardAwareScrollView>
     );
   }
 }
 
-const mapStateToProps=state=>
-{
-  return{
-    themeColor:state.home.themeColor
-  }
-}
-export default connect(mapStateToProps)(Login)
+const mapStateToProps = (state) => {
+  return {
+    themeColor: state.home.themeColor,
+  };
+};
+export default connect(mapStateToProps)(Login);

@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, Image, ImageBackground, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import {
   Avatar,
   Title,
@@ -16,26 +22,29 @@ import imagePath from '../constants/imagePath';
 import navigationStrings from '../constants/navigationStrings';
 import TabRoutes from '../Navigation/TabRoutes';
 import colors from '../styles/colors';
-const image=imagePath.mypic
-function DrawerContent(props) {
-  //   const onLogout = () => {
+import ButtonWithLoader from './ButtonWithLoader';
+const image = imagePath.mypic;
 
-  //   };
- 
+function DrawerContent(props) {
   const {navigation, themeColor} = props;
   console.log(props, 'dfgh');
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
-          <ImageBackground source={imagePath.bg6} style={styles.userInfoSection}>
+          <ImageBackground
+            source={imagePath.bg6}
+            style={styles.userInfoSection}>
             <View style={{flexDirection: 'row', marginTop: 65}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('imageViewer')}>
-              <Avatar.Image source={image}  size={50} />
+              <TouchableOpacity
+                onPress={() => navigation.navigate('imageViewer')}>
+                <Avatar.Image source={image} size={50} />
               </TouchableOpacity>
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
                 <Title style={styles.title}>Mushtaq Ahmad</Title>
-                <Caption style={styles.caption}>aariyanalee786@gmail.com</Caption>
+                <Caption style={styles.caption}>
+                  aariyanalee786@gmail.com
+                </Caption>
               </View>
             </View>
           </ImageBackground>
@@ -43,10 +52,7 @@ function DrawerContent(props) {
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({focused, size}) => (
-                <Image
-                  source={imagePath.home}
-                  style={[{height: 30, width: 30}]}
-                />
+                <Image source={imagePath.home} style={styles.icon} />
               )}
               label="Home"
               onPress={() => alert('Link to help')}
@@ -54,41 +60,30 @@ function DrawerContent(props) {
 
             <DrawerItem
               icon={({focused, size}) => (
-                <Image
-                  source={imagePath.cart}
-                  style={[{height: 25, width: 28}]}
-                />
+                <Image source={imagePath.cart} style={styles.icon} />
               )}
               label="Cart"
               onPress={() => {
                 navigation.navigate(navigationStrings.CART);
               }}
             />
-            
 
             <DrawerItem
               icon={({focused, size}) => (
-                <Image
-                  source={imagePath.ic_search}
-                  style={[{height: 25, width: 25}]}
-                />
+                <Image source={imagePath.ic_search} style={styles.icon} />
               )}
               label="Settings"
             />
             <DrawerItem
-             icon = {({ focused, size }) => (
-                <Image
-                  source={imagePath.heart}
-                  style={[{ height: 30, width: 25 }]}
-                /> ) }
-             label="Support" />
+              icon={({focused, size}) => (
+                <Image source={imagePath.heart} style={styles.icon} />
+              )}
+              label="Support"
+            />
 
-             <DrawerItem
-             icon={({focused, size}) => (
-                <Image
-                  source={imagePath.ic_Qr}
-                  style={[{height: 30, width: 30}]}
-                />
+            <DrawerItem
+              icon={({focused, size}) => (
+                <Image source={imagePath.ic_Qr} style={styles.icon} />
               )}
               label="Generate Qr Code"
               onPress={() => {
@@ -96,11 +91,8 @@ function DrawerContent(props) {
               }}
             />
             <DrawerItem
-             icon={({focused, size}) => (
-                <Image
-                  source={imagePath.ic_Qr}
-                  style={[{height: 30, width: 30}]}
-                />
+              icon={({focused, size}) => (
+                <Image source={imagePath.ic_Qr} style={styles.icon} />
               )}
               label="Scan Qr Code"
               onPress={() => {
@@ -110,15 +102,6 @@ function DrawerContent(props) {
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>
-      <View style={{marginHorizontal: 20, marginVertical: 20}}>
-        {/* <ButtonWithLoader
-          btnStyle={styles.buttonStyle}
-          btnText="LogOut"
-          bgColor={themeColor}
-          btnTextStyle={20}
-          onPress={() => onLogout()}
-        /> */}
-      </View>
     </View>
   );
 }
@@ -129,18 +112,18 @@ const styles = StyleSheet.create({
   },
   userInfoSection: {
     paddingLeft: 20,
-    height:120
+    height: 120,
   },
   title: {
     fontSize: 16,
     marginTop: 3,
     fontWeight: 'bold',
-    color:colors.white
+    color: colors.white,
   },
   caption: {
     fontSize: 14,
     lineHeight: 14,
-    color:colors.white
+    color: colors.white,
   },
   row: {
     marginTop: 20,
@@ -172,6 +155,10 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     borderWidth: 0,
+  },
+  icon: {
+    height: 30,
+    width: 30,
   },
 });
 

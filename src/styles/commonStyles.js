@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {
   textScale,
   moderateScale,
-  moderateScaleVertical,
+  moderateVerticalScale,
 } from './responsiveSize';
 import colors from './colors';
 import fontFamily from './fontFamily';
@@ -30,6 +30,10 @@ export default StyleSheet.create({
     fontFamily:fontFamily.regular,
 
 
+  },
+  fontSize18:
+  {
+    fontSize:textScale(18)
   },
   mediumFont14:{
     fontSize:textScale(14),
@@ -67,7 +71,7 @@ export default StyleSheet.create({
     fontFamily:fontFamily.futuraHeavyBt
   },
   buttonRect: {
-    height: moderateScaleVertical(46),
+    height: moderateVerticalScale(46),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.themeColor,

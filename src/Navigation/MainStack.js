@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import navigationStrings from '../constants/navigationStrings';
-import { Cart, Chat, ImageViewer, QRScanner, QRScreen,} from '../Screens/index';
+import { Cart,  Chat,  ImageViewer, QRScanner, QRScreen,} from '../Screens/index';
 import DrawerNavigation from './DrawerNavigation';
 
 import TabRoutes from './TabRoutes'

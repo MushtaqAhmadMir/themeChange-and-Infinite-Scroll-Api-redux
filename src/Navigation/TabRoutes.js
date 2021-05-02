@@ -18,63 +18,60 @@ function TabRoutes(props) {
   const{newThemeColor}=props.themeColor
   return (
     <Tab.Navigator
-     initialRouteName="Home"
+     initialRouteName={navigationStrings.HOME_PAGE}
       tabBarOptions={{
         activeTintColor:colors.black,
       }} >
      <Tab.Screen
-        name="Home"
+        name={navigationStrings.HOME_PAGE}
         component={HomePage}
         options={{
-          tabBarLabel: 'Home', showIcon:true,
           
            tabBarIcon:({focused})=>
            {
              return(
-               <Image style={{height:25,width:25, tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.home} />
+               <Image style={{height:25,width:25, tintColor : focused ? (newThemeColor):colors.grey}} source={imagePath.home} />
              )
            }
         }
         }
        
       />
-      <Tab.Screen name="Chat" component={ChatRow}  options={{
-          tabBarLabel: 'Chat',
+      <Tab.Screen name={'Chat'} component={ChatRow}  options={{
+         
           tabBarIcon:({focused})=>
            {
              return(
-               <Image style={{height:30,width:30,tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.ic_commet} />
+               <Image style={{height:30,width:30,tintColor : focused ? (newThemeColor):colors.grey}} source={imagePath.ic_commet} />
              )
            }
          
         }} />
-        <Tab.Screen name="Search" component={Search}  options={{
+        <Tab.Screen name={navigationStrings.SEARCH} component={Search}  options={{
           showIcon:true,
-          tabBarLabel: 'Search',
           tabBarIcon:({focused})=>
            {
              return(
-               <Image style={{height:40,width:40,tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.heart} />
+               <Image style={{height:40,width:40,tintColor : focused ? (newThemeColor):colors.grey}} source={imagePath.heart} />
              )
            }
          
         }} />
-        <Tab.Screen name="Cart" component={Cart}  options={{
-          tabBarLabel: 'Cart',
+        <Tab.Screen name={navigationStrings.CART} component={Cart}  options={{
+         
           tabBarIcon:({focused})=>
            {
              return(
-               <Image style={{height:30,width:30,tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.cart} />
+               <Image style={{height:30,width:30,tintColor : focused ? (newThemeColor):colors.grey}} source={imagePath.cart} />
              )
            }
          
         }} />
-         <Tab.Screen name="Profile" component={Profile}  options={{
-          tabBarLabel: 'Profile',
+         <Tab.Screen name={navigationStrings.PROFILE} component={Profile}  options={{
           tabBarIcon:({focused})=>
            {
              return(
-               <Image style={{height:30,width:30,tintColor : focused ? (newThemeColor):"grey"}} source={imagePath.profile} />
+               <Image style={{height:30,width:30,tintColor : focused ? (newThemeColor):colors.grey}} source={imagePath.profile} />
              )
            }
           

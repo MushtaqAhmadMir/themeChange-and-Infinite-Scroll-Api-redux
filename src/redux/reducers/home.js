@@ -5,7 +5,7 @@ import types from '../types';
 initialState = {
   users:[],
   themeColor:{newThemeColor:'#0087F7'}
-};
+}; 
 
 export default function (state = initialState, action) {
   

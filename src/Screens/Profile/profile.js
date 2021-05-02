@@ -18,7 +18,9 @@ import strings from '../../constants/lang';
 import colors from '../../styles/colors';
 import imagePath from '../../constants/imagePath';
 import styles from '../Login/styles';
-import { clearUserData } from '../../utils/utils';
+import {clearUserData} from '../../utils/utils';
+import commonStyles from '../../styles/commonStyles';
+import navigationStrings from '../../constants/navigationStrings';
 
 // console.log(newthemeColor,"in profile")
 class Profile extends Component {
@@ -35,7 +37,7 @@ class Profile extends Component {
         {id: 6, colorId: '#B00020'},
         {id: 7, colorId: '#03DAC5'},
         {id: 8, colorId: '#FFDE03'},
-        {id: 9, colorId: '#FA8100'}
+        {id: 9, colorId: '#FA8100'},
       ],
     };
   }
@@ -45,15 +47,13 @@ class Profile extends Component {
     let data = {newThemeColor: colorId};
     actions.themeChange(data);
   };
-  onLogout=()=>
-  {
-    clearUserData().then(
-      alert('logOut success')
-    )
-  }
+  onLogout = () => {
+    clearUserData().then(alert('logOut success'));
+    actions.logout();
+  };
 
   openModal = () => {
-      this.setState({isVisible:true})
+    this.setState({isVisible: true});
   };
   renderItem = (item) => {
     console.log(item.item.id, 'item.....');
@@ -80,8 +80,7 @@ class Profile extends Component {
   render() {
     const {newThemeColor} = this.props.themeColor;
     const {isVisible} = this.state;
-    
-    
+
     return (
       <View style={{backgroundColor: colors.lightGreyBg}}>
         <StatusBar bgcolor={newThemeColor} />
@@ -91,97 +90,52 @@ class Profile extends Component {
             text={strings.MY_PROFILE}
             tintColor={newThemeColor}
             cartImg={imagePath.cart}
-            
           />
         </View>
-        <View
-          style={{
-            height: 200,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: colors.whiteOpacity77,
-          }}>
-          <View  style={{
-              height: 150,
-              width: 150,
-              alignSelf: 'center',
-              backgroundColor: colors.lightGreyBg,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 100,
-            }}>
+        <View style={style.imgContainer}>
+          <View style={style.imgView}>
             <Image
-              style={{height: 120, width: 120,tintColor:newThemeColor}}
+              style={{height: 120, width: 120, tintColor: newThemeColor}}
               source={imagePath.profile}
             />
           </View>
         </View>
         <View style={style.rowView}>
           <TouchableOpacity onPress={this.openModal}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>CHANGE THEME</Text>
+            <Text style={style.text}>{strings.CHANGE_THEME}</Text>
           </TouchableOpacity>
         </View>
         <View style={style.rowView}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>ORDERS</Text>
+          <Text style={style.text}>{strings.MY_ORDERS}</Text>
         </View>
         <View style={style.rowView}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>HELP</Text>
+          <Text style={style.text}>{strings.HELP}</Text>
         </View>
         <View style={style.rowView}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>WISHLIST</Text>
+          <Text style={style.text}>{strings.WISHLIST}</Text>
         </View>
         <View style={style.rowView}>
           <TouchableOpacity onPress={this.onLogout}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>LOGOUT</Text>
+            <Text style={style.text}>{strings.LOGOUT}</Text>
           </TouchableOpacity>
         </View>
         <Modal
           visible={isVisible}
           transparent
           style={{justifyContent: 'center', alignItems: 'center'}}>
-          <View
-            style={{
-              backgroundColor: colors.white,
-              height: 130,
-              margin: 20,
-              position: 'relative',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-
-              elevation: 5,
-              marginTop:250
-            }}>
+          <View style={style.modalView}>
             <TouchableOpacity
-              style={{
-                position: 'absolute',
-                height: 30,
-                width: 30,
-                right: -10,
-                top: -10,
-              }}
+              style={style.touchableView}
               onPress={() => {
                 this.setState({isVisible: false});
               }}>
               <Image source={imagePath.cross} style={{height: 30, width: 30}} />
             </TouchableOpacity>
-            <View
-              style={{
-                height: 130,
-                width: 200,
-                alignItems: 'center',
-                padding: 2,
-                marginLeft: 100,
-              }}>
+            <View style={style.colorView}>
               <FlatList
                 data={this.state.colors}
                 renderItem={this.renderItem}
                 numColumns={3}
-                
               />
             </View>
           </View>
@@ -193,7 +147,7 @@ class Profile extends Component {
 const mapStateToProps = (state) => {
   return {
     themeColor: state.home.themeColor,
-    facebookData:state.auth.facebookData
+    facebookData: state.auth.facebookData,
   };
 };
 export default connect(mapStateToProps)(Profile);
@@ -202,8 +156,58 @@ const style = StyleSheet.create({
     height: 70,
     borderBottomWidth: 0.5,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     padding: 10,
     marginTop: 5,
+  },
+  text: {
+    ...commonStyles.fontSize18,
+
+    fontWeight: 'bold',
+  },
+  colorView: {
+    height: 130,
+    width: 200,
+    alignItems: 'center',
+    padding: 2,
+    marginLeft: 100,
+  },
+  modalView: {
+    backgroundColor: colors.white,
+    height: 130,
+    margin: 20,
+    position: 'relative',
+    shadowColor: colors.buyBgDark,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+    marginTop: 250,
+  },
+  touchableView: {
+    position: 'absolute',
+    height: 30,
+    width: 30,
+    right: -10,
+    top: -10,
+  },
+  imgView: {
+    height: 150,
+    width: 150,
+    alignSelf: 'center',
+    backgroundColor: colors.lightGreyBg,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
+  },
+  imgContainer: {
+    height: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.whiteOpacity77,
   },
 });
